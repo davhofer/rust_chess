@@ -16,6 +16,7 @@ use ggez::input::{keyboard, mouse};
 use ggez::timer;
 use ggez::{Context, GameResult};
 use std::env;
+use std::io::{stdin, stdout, Write};
 use std::path;
 
 const WINDWOW_SIZE: f32 = 800.;
@@ -42,7 +43,7 @@ struct MainState {
     field: (i16, i16),
     game: Game,
     current_legal_moves: Vec<ChessMove>,
-    bot_color: u8,
+    player_color: u8,
     bot: Bot,
 }
 fn canvas_coord_to_canvas_square(x: i16, y: i16, pov: u8) -> (i16, i16) {
@@ -69,26 +70,26 @@ fn movegen(board: &Board, start_square: Square, color_to_move: chess::Color) -> 
 }
 
 impl MainState {
-    fn new(ctx: &mut Context, bot_color: u8) -> GameResult<MainState> {
+    fn new(ctx: &mut Context, player_color: u8) -> GameResult<MainState> {
         //filesystem::print_all(ctx);
 
         let rng = oorandom::Rand32::new(271828);
         let game: Game = Game::from_str(STARTING_FEN).expect("Valid FEN");
-        let color = if bot_color == 2 {
+        let bot_color = if player_color == 1 {
             chess::Color::Black
         } else {
             chess::Color::White
         };
 
         let s = MainState {
-            pov: (bot_color % 2) + 1,
+            pov: player_color,
             flip_timeout: 0,
             field_selected: false,
             field: (-1, -1),
             game,
             current_legal_moves: movegen_empty(),
-            bot_color,
-            bot: Bot::new(color),
+            player_color,
+            bot: Bot::new(bot_color),
         };
 
         Ok(s)
@@ -260,7 +261,8 @@ impl event::EventHandler<ggez::GameError> for MainState {
                 graphics::Image::new(ctx, "/Chess_kdt60.png")?,
             ],
         ];
-
+        let img_size = piece_imgs[0][0].width() as f32;
+        let offset = (tile_size - img_size) / 2.0;
         let board = self.game.current_position();
         for i in 0..8 {
             for j in 0..8 {
@@ -271,7 +273,17 @@ impl event::EventHandler<ggez::GameError> for MainState {
                     } else {
                         1
                     };
-                    let dest_point = glam::Vec2::new(i as f32 * tile_size, j as f32 * tile_size);
+                    let dest_point = glam::Vec2::new(
+                        i as f32 * tile_size + offset,
+                        j as f32 * tile_size + offset,
+                    );
+                    //let scale = glam::Vec2::new(1.3, 1.3);
+                    let param = graphics::Rect::new(
+                        i as f32 * tile_size + tile_size * 0.1,
+                        j as f32 * tile_size + tile_size * 0.1,
+                        tile_size - (tile_size * 0.2),
+                        tile_size - (tile_size * 0.2),
+                    );
                     graphics::draw(
                         ctx,
                         &piece_imgs[color as usize][piece.to_index() as usize],
@@ -311,14 +323,15 @@ pub fn main() -> GameResult {
         });
     let (mut ctx, event_loop) = cb.build()?;
 
-    let bot_color = 2;
-    let state = MainState::new(&mut ctx, bot_color)?;
+    let player_color = 2;
+
+    let state = MainState::new(&mut ctx, player_color)?;
     event::run(ctx, event_loop, state)
 }
 
 struct Bot {
     color: chess::Color,
-    objective: i8,
+    objective: i32,
 }
 
 impl Bot {
@@ -330,13 +343,15 @@ impl Bot {
     }
 
     fn eval(&self, board: &Board) -> i32 {
-        0
+        evaluate(board)
     }
 
     fn get_move(&self, board: Board) -> ChessMove {
-        let (pos_score, best_move) = self.negamax(board, 3, 1);
+        let depth = 3;
+        println!("Searching for move...");
+        let (pos_score, best_move) =
+            self.negamax_ab(board, depth, i32::MIN + 2, i32::MAX - 2, self.objective); //self.negamax(board, depth, self.objective);
         println!("Score for current position: {}", pos_score);
-        println!("Move: {:?}", best_move);
         if let Some(m) = best_move {
             println!("Move chosen: {:?}", m);
             m
@@ -363,4 +378,113 @@ impl Bot {
         }
         (score, best_move)
     }
+
+    fn negamax_ab(
+        &self,
+        board: Board,
+        depth: u8,
+        alpha: i32,
+        beta: i32,
+        player_obj: i32,
+    ) -> (i32, Option<ChessMove>) {
+        if depth == 0 || board.status() != BoardStatus::Ongoing {
+            return (player_obj * self.eval(&board), None);
+        }
+
+        let child_nodes = MoveGen::new_legal(&board);
+        // order the moves
+        let mut score = i32::MIN;
+        let mut best_move = None;
+        for m in child_nodes {
+            let new_board = board.make_move_new(m);
+            let (child_score, child_move) =
+                self.negamax_ab(new_board, depth - 1, -beta, -alpha, -player_obj);
+            let child_score = -child_score;
+            if child_score > score {
+                score = child_score;
+                best_move = Some(m);
+            }
+
+            let alpha = cmp::max(alpha, child_score);
+            if alpha > beta {
+                break;
+            }
+        }
+        (score, best_move)
+    }
+}
+
+fn evaluate(board: &Board) -> i32 {
+    // can learn the parameters with a python neural network?
+
+    // material value + balance & other material considerations, adjusting piece values based on game state
+    // piece square tables
+    // pawn structure
+    // mobility
+    // center control
+    // king safety
+    // special piece patterns (fianchetto, outposts, etc)
+    // connectivity
+    // protectivity of pieces
+    // trapped pieces
+    // space
+    // tempo
+    // danger levels
+    // attacking
+    // stuff like forks
+    // hanging pieces
+
+    // material value
+    let pawn = 10;
+    let bishop = 30;
+    let knight = 30;
+    let rook = 50;
+    let queen = 90;
+
+    let no_pawns_penalty = -5;
+    let bishoppair = 5;
+    let knightpair = -1;
+    let rookpair = -1;
+    let white_pieces = board.color_combined(chess::Color::White);
+    let black_pieces = board.color_combined(chess::Color::Black);
+    let mut mat_white = 0;
+    let mut mat_black = 0;
+
+    //     Piece::Pawn
+    let pawns = board.pieces(Piece::Pawn);
+    let pawns_w = (pawns & white_pieces).popcnt() as i32;
+    let pawns_b = (pawns & black_pieces).popcnt() as i32;
+    mat_white += pawns_w * pawn + if pawns_w == 0 { no_pawns_penalty } else { 0 };
+    mat_black += pawns_b * pawn + if pawns_b == 0 { no_pawns_penalty } else { 0 };
+    //     Piece::Knight
+    let knights = board.pieces(Piece::Knight);
+    let knight_w = (knights & white_pieces).popcnt() as i32;
+    let knight_b = (knights & black_pieces).popcnt() as i32;
+    mat_white += knight_w * knight + if knight_w == 2 { knightpair } else { 0 };
+    mat_black += knight_b * knight + if knight_b == 2 { knightpair } else { 0 };
+    //     Piece::Bishop
+    let bishops = board.pieces(Piece::Bishop);
+    let bishops_w = (bishops & white_pieces).popcnt() as i32;
+    let bishops_b = (bishops & black_pieces).popcnt() as i32;
+    // bonus for bishoppair
+    mat_white += bishops_w * bishop + if bishops_w == 2 { bishoppair } else { 0 };
+    mat_black += bishops_b * bishop + if bishops_b == 2 { bishoppair } else { 0 };
+    //     Piece::Rook
+    let rooks = board.pieces(Piece::Rook);
+    let rooks_w = (rooks & white_pieces).popcnt() as i32;
+    let rooks_b = (rooks & black_pieces).popcnt() as i32;
+    // malus for rook pair (redundancy)
+    mat_white += rooks_w * rook + if rooks_w == 2 { rookpair } else { 0 };
+    mat_black += rooks_b * rook + if rooks_b == 2 { rookpair } else { 0 };
+    //
+    //     Piece::Queen
+    let queens = board.pieces(Piece::Queen);
+    mat_white += (queens & white_pieces).popcnt() as i32 * queen;
+    mat_black += (queens & black_pieces).popcnt() as i32 * queen;
+    let mat_score = mat_white - mat_black;
+
+    // possible moves
+    let current_player_moves = MoveGen::new_legal(board).len();
+
+    mat_white - mat_black
 }
