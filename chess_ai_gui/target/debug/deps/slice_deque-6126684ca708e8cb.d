@@ -1,0 +1,11 @@
+C:\Users\david\Documents\Code\rust_chess\chess_ai_gui\target\debug\deps\slice_deque-6126684ca708e8cb.rmeta: C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\lib.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\macros.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\mod.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\buffer.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\winapi.rs
+
+C:\Users\david\Documents\Code\rust_chess\chess_ai_gui\target\debug\deps\libslice_deque-6126684ca708e8cb.rlib: C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\lib.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\macros.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\mod.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\buffer.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\winapi.rs
+
+C:\Users\david\Documents\Code\rust_chess\chess_ai_gui\target\debug\deps\slice_deque-6126684ca708e8cb.d: C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\lib.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\macros.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\mod.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\buffer.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\winapi.rs
+
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\lib.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\macros.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\mod.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\buffer.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\slice-deque-0.3.0\src\mirrored\winapi.rs:

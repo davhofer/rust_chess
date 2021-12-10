@@ -1,0 +1,14 @@
+c:\Users\david\Documents\Code\rust_chess\chess_ai_gui\target\rls\debug\deps\zip-13c37fa82abe4b61.rmeta: C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\lib.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\compression.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\cp437.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\crc32.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\read.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\result.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\spec.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\types.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\write.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\zipcrypto.rs
+
+c:\Users\david\Documents\Code\rust_chess\chess_ai_gui\target\rls\debug\deps\zip-13c37fa82abe4b61.d: C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\lib.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\compression.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\cp437.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\crc32.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\read.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\result.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\spec.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\types.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\write.rs C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\zipcrypto.rs
+
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\lib.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\compression.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\cp437.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\crc32.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\read.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\result.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\spec.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\types.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\write.rs:
+C:\Users\david\.cargo\registry\src\github.com-1ecc6299db9ec823\zip-0.5.13\src\zipcrypto.rs:
